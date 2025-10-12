@@ -1,0 +1,87 @@
+.home-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Header section */
+.header {
+  background: linear-gradient(90deg, #004e92, #000428);
+  color: white;
+  padding: 2rem 1rem;
+}
+
+.header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.header .slogan {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Features section */
+.features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.feature {
+  flex: 1 1 300px;
+  padding: 1.5rem;
+  margin: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature img {
+  max-width: 100px;
+  margin-bottom: 1rem;
+}
+
+.feature h2 {
+  color: #004e92;
+  margin-bottom: 0.5rem;
+}
+
+/* CTA section */
+.cta {
+  background: #004e92;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.cta button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #004e92;
+  transition: 0.2s ease;
+}
+
+.cta button:hover {
+  opacity: 0.9;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature {
+    max-width: 90%;
+  }
+
+  .cta button {
+    width: 100%;
+    max-width: 300px;
+  }
+}

@@ -1,0 +1,173 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4>Opening a New Account</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+
+            <!-- Personal Details -->
+            <h5 class="text-danger">Personal Details</h5>
+            <div class="row">
+              <div class="col-md-2">
+                <label for="title">Title*</label>
+                <select id="title" class="form-control" formControlName="title">
+                  <option value="">Select</option>
+                  <option>Mr.</option>
+                  <option>Mrs.</option>
+                  <option>Miss</option>
+                </select>
+                <div *ngIf="submitted && f['title'].invalid" class="text-danger">Required</div>
+              </div>
+              <div class="col-md-3">
+                <label for="firstName">First Name*</label>
+                <input id="firstName" type="text" class="form-control" formControlName="firstName">
+                <div *ngIf="submitted && f['firstName'].invalid" class="text-danger">Required</div>
+              </div>
+              <div class="col-md-3">
+                <label for="middleName">Middle Name</label>
+                <input id="middleName" type="text" class="form-control" formControlName="middleName">
+              </div>
+              <div class="col-md-3">
+                <label for="lastName">Last Name*</label>
+                <input id="lastName" type="text" class="form-control" formControlName="lastName">
+                <div *ngIf="submitted && f['lastName'].invalid" class="text-danger">Required</div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <label for="fatherName">Father's Name*</label>
+                <input id="fatherName" type="text" class="form-control" formControlName="fatherName">
+                <div *ngIf="submitted && f['fatherName'].invalid" class="text-danger">Required</div>
+              </div>
+              <div class="col-md-4">
+                <label for="mobileNumber">Mobile Number*</label>
+                <input id="mobileNumber" type="text" class="form-control" formControlName="mobileNumber">
+                <div *ngIf="submitted && f['mobileNumber'].invalid" class="text-danger">Enter valid number</div>
+              </div>
+              <div class="col-md-4">
+                <label for="email">Email ID*</label>
+                <input id="email" type="email" class="form-control" formControlName="email">
+                <div *ngIf="submitted && f['email'].invalid" class="text-danger">Enter valid email</div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <label for="aadhar">Aadhar Card Number*</label>
+                <input id="aadhar" type="text" class="form-control" formControlName="aadhar">
+              </div>
+              <div class="col-md-6">
+                <label for="dob">Date of Birth*</label>
+                <input id="dob" type="date" class="form-control" formControlName="dob">
+              </div>
+            </div>
+
+            <!-- Residential Address -->
+                        <div formGroupName="residentialAddress">
+            <div class="row mt-2">
+                <div class="col-md-6">
+                <label>Address Line 1*</label>
+                <input type="text" class="form-control" formControlName="line1">
+                </div>
+                <div class="col-md-6">
+                <label>Address Line 2</label>
+                <input type="text" class="form-control" formControlName="line2">
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-4">
+                <label>Landmark</label>
+                <input type="text" class="form-control" formControlName="landmark">
+                </div>
+                <div class="col-md-4">
+                <label>City*</label>
+                <input type="text" class="form-control" formControlName="city">
+                </div>
+                <div class="col-md-4">
+                <label>Pincode*</label>
+                <input type="text" class="form-control" formControlName="pincode">
+                </div>
+            </div>
+            </div>
+
+
+            <!-- Permanent Address -->
+                    <div formGroupName="permanentAddress">
+        <div class="row mt-2">
+            <div class="col-md-6">
+            <label>Address Line 1*</label>
+            <input type="text" class="form-control" formControlName="line1">
+            </div>
+            <div class="col-md-6">
+            <label>Address Line 2</label>
+            <input type="text" class="form-control" formControlName="line2">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-4">
+            <label>Landmark</label>
+            <input type="text" class="form-control" formControlName="landmark">
+            </div>
+            <div class="col-md-4">
+            <label>City*</label>
+            <input type="text" class="form-control" formControlName="city">
+            </div>
+            <div class="col-md-4">
+            <label>Pincode*</label>
+            <input type="text" class="form-control" formControlName="pincode">
+            </div>
+        </div>
+        </div>
+
+
+            <!-- Occupation Details -->
+            <h5 class="text-danger mt-4">Occupation Details</h5>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Occupation Type*</label>
+                <select class="form-control" formControlName="occupationType">
+                  <option value="">Select</option>
+                  <option>Salaried</option>
+                  <option>Self-Employed</option>
+                  <option>Student</option>
+                  <option>Retired</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Annual Income*</label>
+                <input type="text" class="form-control" formControlName="annualIncome">
+              </div>
+            </div>
+
+            <!-- Debit/ATM & Net Banking -->
+            <h5 class="text-danger mt-4">Debit/ATM & Net Banking</h5>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" formControlName="debitCard">
+              <label class="form-check-label">Do you want a Debit Card?</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" formControlName="netBanking">
+              <label class="form-check-label">Opt for Net Banking</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" formControlName="terms">
+              <label class="form-check-label">I agree...</label>
+            </div>
+
+            <!-- Submit -->
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+              {{ successMessage }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

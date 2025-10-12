@@ -1,0 +1,128 @@
+<!-- <div class="container vh-100 vw-100 mt-5">
+    <div class="row justify-content-center"> 
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Dealer Login Form</h4>
+                </div>
+                <div class="card-body">
+                    <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" class="form-control"
+                                [(ngModel)]="loginData.email" required #email="ngModel"
+                                [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}" />
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                                <div *ngIf="email.errors?.['required']">Email is required.</div>
+                                <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" class="form-control"
+                                [(ngModel)]="loginData.password" required #password="ngModel"
+                                [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}" />
+                            <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                class="invalid-feedback">
+                                <div *ngIf="password.errors?.['required']">Password is required.</div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3" [disabled]="loginForm.invalid">Login</button>
+                        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                            {{ errorMessage }}
+                        </div>
+                        <div *ngIf="successMessage" class="alert alert-success mt-3">
+                            {{ successMessage }}
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+Types of Angular Forms
+There are two types of form building supported by Angular Forms. 
+
+Template-Driven Approach 
+Reactive Approach 
+
+**** Template-Driven Approach ****
+In this method, the conventional form tag is used to create forms. 
+Angular automatically interprets and creates a form object representation for the tag. 
+Controls can be added to the form using the NGModel tag. 
+Multiple controls can be grouped using the NGControlGroup module. 
+A form value can be generated using the “form.value” object. 
+Form data is exported as JSON values when the submit method is called. 
+Basic HTML validations can be used to validate the form fields. 
+In the case of custom validations, directives can be used. 
+Arguably, this method is the simplest way to create an Angular App. 
+-->
+
+<div class="container vh-100 vw-100 mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4>Dealer Login Form</h4>
+        </div>
+        <div class="card-body">
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                [(ngModel)]="loginData.email"
+                required
+                #email="ngModel"
+                [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}"
+              />
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                <div *ngIf="email.errors?.['required']">Email is required.</div>
+                <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+              </div>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                [(ngModel)]="loginData.password"
+                required
+                #password="ngModel"
+                [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
+              />
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
+                <div *ngIf="password.errors?.['required']">Password is required.</div>
+              </div>
+            </div>
+
+            <!-- Forgot ID and Password links -->
+            <div class="d-flex justify-content-between mt-2">
+              <a (click)="onForgotId()" class="text-primary" style="cursor: pointer;">Forgot ID?</a>
+              <a (click)="onForgotPassword()" class="text-primary" style="cursor: pointer;">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="loginForm.invalid">Login</button>
+
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+              {{ successMessage }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
