@@ -27,7 +27,7 @@
 //     // Check against static values
 //     if (this.loginData.email === this.validEmail && this.loginData.password === this.validPassword) {
 //       this.successMessage = 'Login Success. Redirecting...';
-      
+
 //       // Redirect after short delay
 //       setTimeout(() => {
 //         this.router.navigate(['/']); // navigate to dashboard or home
@@ -57,7 +57,7 @@ export class LoginComponent {
   private readonly validEmail = 'test@example.com';
   private readonly validPassword = 'password123';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   onSubmit() {
     this.errorMessage = '';
@@ -65,11 +65,10 @@ export class LoginComponent {
 
     if (this.loginData.email === this.validEmail && this.loginData.password === this.validPassword) {
       this.successMessage = 'Login Success. Redirecting...';
+      localStorage.setItem('user', JSON.stringify({ email: this.loginData.email }));
       setTimeout(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       }, 500);
-    } else {
-      this.errorMessage = 'Invalid login credentials.';
     }
   }
 

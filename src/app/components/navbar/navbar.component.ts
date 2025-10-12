@@ -1,34 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-// import { AuthenticationService } from '../../service/authentication.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule,RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-   title = 'product-hive-consumer';
-  username :string='';
-  isUserLoggedIn:boolean=false; 
-  
+  isUserLoggedIn: boolean = false;
+  username: string = '';
 
+  constructor(private router: Router) {}
 
-  // constructor(public authService: AuthenticationService) {  }
-   constructor(private router: Router) {  }
+  ngOnInit() {
+    // Check login status from localStorage on load
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.isUserLoggedIn = true;
+      this.username = JSON.parse(user).email;
+    }
+  }
 
-  
-  // ngOnInit() {
-  //   // Subscribe to userName$ observable to get updates dynamically
-  //   this.authService.userName$.subscribe((email: string) => {
-  //     this.username = email;
-  //     this.isUserLoggedIn = this.authService.isLoggedIn();
-  //   });
-  // }
-
-  // handleLogout(){
-  //   this.authService.logout();
-  // }
+  logout() {
+    localStorage.removeItem('user');
+    this.isUserLoggedIn = false;
+    this.username = '';
+    this.router.navigate(['/home']);
+  }
 }
