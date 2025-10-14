@@ -1,0 +1,19 @@
+.table {
+  font-size: 0.95rem;
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.text-success {
+  font-weight: 600;
+}
+
+.text-danger {
+  font-weight: 600;
+}

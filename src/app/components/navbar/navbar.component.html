@@ -1,6 +1,6 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <ul class="nav-list">
-    <!-- ✅ When user is NOT logged in -->
+    <!-- ✅ When user is NOT logged in --
     <ng-container *ngIf="!isUserLoggedIn">
       <li class="nav-item">
         <a routerLink="/home">Home</a>
@@ -11,33 +11,24 @@
       <li class="nav-item">
         <a routerLink="/login">Login</a>
       </li>
-      <li class="nav-item">
-        <a routerLink="/newaccount">Open new saving account</a>
-      </li>
     </ng-container>
 
-    <!-- ✅ When user IS logged in -->
+    <!-- ✅ When user IS logged in --
     <ng-container *ngIf="isUserLoggedIn">
       <li class="nav-item">
         <a routerLink="/dashboard">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/account-details">Account Details</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/account-summary">Account Summary</a>
+        <a routerLink="/account">Account Details</a>
       </li>
       <li class="nav-item">
         <a routerLink="/funds-transfer">Funds Transfer</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/account-statement">Account Statement</a>
+        <a routerLink="/payee">Payee Section</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/profile">User Profile</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="/change-password">Change UserID/Password</a>
+        <a routerLink="/transaction">Transactions</a>
       </li>
       <li class="nav-item">
         <a (click)="logout()" style="cursor: pointer;">Logout</a>
@@ -47,4 +38,51 @@
       </li>
     </ng-container>
   </ul>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">MyBank</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-label="Toggle navigation" title="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <!-- When not logged in -->
+        <ng-container *ngIf="!isUserLoggedIn">
+          <li class="nav-item"><a class="nav-link" routerLink="/home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/register">Register</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
+        </ng-container>
+
+        <!-- When user logs in as customer/user -->
+        <ng-container *ngIf="isUserLoggedIn && loginType === 'user'">
+          <li class="nav-item"><a class="nav-link" routerLink="/dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/account">Account</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/funds-transfer">Funds Transfer</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/payee">Payee Section</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/transaction">Transactions</a></li>
+        </ng-container>
+
+        <!-- When admin logs in -->
+        <ng-container *ngIf="isUserLoggedIn && loginType === 'admin'">
+          <li class="nav-item"><a class="nav-link" routerLink="/admin-dashboard">Admin Dashboard</a></li>
+        </ng-container>
+
+      </ul>
+
+      <!-- Right side -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="isUserLoggedIn">
+          <span class="navbar-text text-white me-3">Welcome, {{ username }}</span>
+        </li>
+        <li class="nav-item" *ngIf="isUserLoggedIn">
+          <button class="btn btn-light btn-sm" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

@@ -1,1 +1,97 @@
-<p>register works!</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-9">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h2 class="mb-0">Create Your Account</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="needs-validation">
+
+            <!-- First & Last Name Row -->
+            <div class="row mb-3">
+              <div class="col">
+                <label for="firstName" class="form-label">First Name</label>
+                <input id="firstName" formControlName="firstName" type="text" placeholder="Enter first name" class="form-control" />
+                <small class="text-danger" *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                  First name is required.
+                </small>
+              </div>
+              <div class="col">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input id="lastName" formControlName="lastName" type="text" placeholder="Enter last name" class="form-control" />
+                <small class="text-danger" *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                  Last name is required.
+                </small>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input id="email" formControlName="email" type="email" placeholder="Enter your email" class="form-control" />
+              <small class="text-danger" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                Please enter a valid email.
+              </small>
+            </div>
+
+            <!-- Password & Transaction Password Row -->
+            <div class="row mb-3">
+              <div class="col">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" formControlName="password" type="password" placeholder="Enter password" class="form-control" />
+                <small class="text-danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                  Password must be at least 6 characters.
+                </small>
+              </div>
+              <div class="col">
+                <label for="transactionPassword" class="form-label">Transaction Password</label>
+                <input id="transactionPassword" formControlName="transactionPassword" type="password" placeholder="Transaction password" class="form-control" />
+                <small class="text-danger" *ngIf="registerForm.get('transactionPassword')?.invalid && registerForm.get('transactionPassword')?.touched">
+                  Transaction password must be at least 4 characters.
+                </small>
+              </div>
+            </div>
+
+            <!-- Phone & DOB Row -->
+            <div class="row mb-3">
+              <div class="col">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <input id="phoneNumber" formControlName="phoneNumber" type="text" placeholder="Enter phone number" class="form-control" />
+                <small class="text-danger" *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
+                  Enter a valid 10-digit phone number.
+                </small>
+              </div>
+              <div class="col">
+                <label for="dob" class="form-label">Date of Birth</label>
+                <input id="dob" formControlName="dob" type="date" class="form-control" />
+                <small class="text-danger" *ngIf="registerForm.get('dob')?.invalid && registerForm.get('dob')?.touched">
+                  Date of birth is required.
+                </small>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3">
+              <label for="address" class="form-label">Address</label>
+              <textarea id="address" formControlName="address" placeholder="Enter your address" class="form-control" rows="3"></textarea>
+              <small class="text-danger" *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched">
+                Address is required.
+              </small>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-primary btn-block" [disabled]="registerForm.invalid">Register</button>
+            </div>
+
+            <!-- Global Messages -->
+            <p class="text-success text-center" *ngIf="successMessage">{{ successMessage }}</p>
+            <p class="text-danger text-center" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

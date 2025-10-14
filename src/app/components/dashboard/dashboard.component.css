@@ -1,0 +1,98 @@
+.dashboard-container {
+  padding: 2rem;
+  background-color: #f5f8fd;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #0d47a1;
+}
+
+.highlight {
+  color: #1976d2;
+}
+
+.sub-text {
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.user-info-card {
+  background: white;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.user-info-card h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #0d47a1;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 2rem;
+  font-size: 1rem;
+}
+
+.info-grid div strong {
+  color: #333;
+}
+
+.benefits {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.benefits h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #0d47a1;
+}
+
+.benefits-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.benefit-item {
+  background: white;
+  padding: 1rem;
+  width: 280px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.benefit-item img {
+  max-width: 80px;
+  margin-bottom: 1rem;
+}
+
+.benefit-item h3 {
+  color: #0d47a1;
+  margin-bottom: 0.5rem;
+}
+
+.benefit-item p {
+  color: #555;
+}
+
+.benefit-item:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Transaction History</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="transactions.length === 0 && !errorMessage" class="text-center text-muted">
+    No transactions found.
+  </div>
+
+  <table *ngIf="transactions.length > 0" class="table table-bordered table-hover shadow-sm mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>Transaction ID</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Remarks</th>
+        <th>Date</th>
+        <th>Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tx of transactions">
+        <td>{{ tx.transactionId }}</td>
+        <td>
+          <span [ngClass]="{
+              'text-success': tx.type === 'CREDIT',
+              'text-danger': tx.type === 'DEBIT'
+            }">{{ tx.type }}</span>
+        </td>
+        <td>{{ tx.amount | currency:'INR' }}</td>
+        <td>{{ tx.remarks }}</td>
+        <td>{{ tx.transactionDate | date:'short' }}</td>
+        <td>{{ tx.reference || '-' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

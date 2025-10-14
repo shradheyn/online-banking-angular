@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Admin Dashboard - Pending Requests</h2>
+
+  <div *ngIf="isLoading" class="text-center my-4">
+    Loading pending requests...
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <table *ngIf="pendingRequests.length > 0" class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Account ID</th>
+        <th>Account Number</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let acc of pendingRequests">
+        <td>{{ acc.accountId }}</td>
+        <td>{{ acc.accountNumber }}</td>
+        <td>{{ acc.accountType }}</td>
+        <td>{{ acc.balance | currency:'INR' }}</td>
+        <td>{{ acc.status }}</td>
+        <td>{{ acc.createdAt | date:'short' }}</td>
+        <td>{{ acc.updatedAt | date:'short' }}</td>
+        <td>
+          <button class="btn btn-success btn-sm me-2" (click)="approve(acc.accountId)">Approve</button>
+          <button class="btn btn-danger btn-sm" (click)="reject(acc.accountId)">Reject</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isLoading && pendingRequests.length === 0" class="text-center text-muted">
+    No pending requests.
+  </div>
+</div>

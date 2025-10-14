@@ -1,0 +1,143 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Fund Transfer</h2>
+
+  <!-- Buttons -->
+  <div class="text-center mb-4">
+    <button class="btn btn-primary me-3" (click)="toggleTransferForm()">Make a Transfer</button>
+    <button class="btn btn-secondary" (click)="toggleHistoryTable()">View History</button>
+  </div>
+
+  <!-- Success & Error messages -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+
+  <!-- Transfer Form -->
+  <div *ngIf="showTransferForm" class="card p-4 shadow-sm">
+    <!-- From Account ID -->
+    <div class="mb-3">
+      <label for="fromAccountId" class="form-label">From Account ID</label>
+      <input
+        id="fromAccountId"
+        type="text"
+        class="form-control"
+        [value]="transferData.fromAccountId"
+        readonly
+        title="From Account ID"
+      />
+    </div>
+
+    <!-- To Account ID -->
+    <div class="mb-3">
+      <label for="toAccountId" class="form-label">To Account ID</label>
+      <input
+        id="toAccountId"
+        type="number"
+        class="form-control"
+        [(ngModel)]="transferData.toAccountId"
+        name="toAccountId"
+        placeholder="Enter recipient account ID"
+        title="To Account ID"
+        required
+      />
+    </div>
+
+    <!-- Amount -->
+    <div class="mb-3">
+      <label for="amount" class="form-label">Amount</label>
+      <input
+        id="amount"
+        type="number"
+        class="form-control"
+        [(ngModel)]="transferData.amount"
+        name="amount"
+        placeholder="Enter amount to transfer"
+        title="Amount"
+        required
+      />
+    </div>
+
+    <!-- Transfer Mode -->
+    <div class="mb-3">
+      <label for="transferMode" class="form-label">Transfer Mode</label>
+      <select
+        id="transferMode"
+        class="form-select"
+        [(ngModel)]="transferData.transferMode"
+        name="transferMode"
+        title="Transfer Mode"
+        required
+      >
+        <option value="">Select Mode</option>
+        <option value="NEFT">NEFT</option>
+        <option value="IMPS">UPI</option>
+      </select>
+    </div>
+
+    <!-- Transaction Password -->
+    <div class="mb-3">
+      <label for="transactionPassword" class="form-label">Transaction Password</label>
+      <input
+        id="transactionPassword"
+        type="password"
+        class="form-control"
+        [(ngModel)]="transferData.transactionPassword"
+        name="transactionPassword"
+        placeholder="Enter transaction password"
+        title="Transaction Password"
+        required
+      />
+    </div>
+
+    <!-- Remarks -->
+    <div class="mb-3">
+      <label for="remarks" class="form-label">Remarks</label>
+      <input
+        id="remarks"
+        type="text"
+        class="form-control"
+        [(ngModel)]="transferData.remarks"
+        name="remarks"
+        placeholder="Enter remarks"
+        title="Remarks"
+      />
+    </div>
+
+    <button class="btn btn-success w-100" (click)="makeTransfer()">Transfer</button>
+  </div>
+
+  <!-- Transaction History Table -->
+  <div *ngIf="showHistoryTable" class="card p-4 shadow-sm mt-4">
+    <h4 class="mb-3">Transaction History</h4>
+
+    <table class="table table-bordered table-hover" *ngIf="historyData.length > 0">
+      <thead class="table-dark">
+        <tr>
+          <th>Transfer ID</th>
+          <th>From Account</th>
+          <th>To Account</th>
+          <th>Amount</th>
+          <th>Mode</th>
+          <th>Status</th>
+          <th>Remarks</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of historyData">
+          <td>{{ tx.transferId }}</td>
+          <td>{{ tx.fromAccountId }}</td>
+          <td>{{ tx.toAccountId }}</td>
+          <td>{{ tx.amount | currency:'INR' }}</td>
+          <td>{{ tx.transferMode }}</td>
+          <td>{{ tx.status }}</td>
+          <td>{{ tx.remarks }}</td>
+          <td>{{ tx.transferDate | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="historyData.length === 0 && !errorMessage" class="text-center text-muted">
+      No transactions yet.
+    </div>
+  </div>
+</div>
