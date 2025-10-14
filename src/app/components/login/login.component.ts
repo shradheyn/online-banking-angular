@@ -1,74 +1,76 @@
-// import { CommonModule } from '@angular/common';
-// import { Component } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { Router } from '@angular/router';
-
-// @Component({
-//   selector: 'app-login',
-//   imports: [FormsModule, CommonModule], // using template-driven forms (ngModel)
-//   templateUrl: './login.component.html',
-//   styleUrls: ['./login.component.css'] // fixed typo 'styleUrl' -> 'styleUrls'
-// })
-// export class LoginComponent {
-//   loginData = { email: '', password: '' };
-//   errorMessage: string = '';
-//   successMessage: string = '';
-
-//   // Hardcoded credentials
-//   private readonly validEmail = 'test@example.com';
-//   private readonly validPassword = 'password123';
-
-//   constructor(private router: Router) {}
-
-//   onSubmit() {
-//     this.errorMessage = '';
-//     this.successMessage = '';
-
-//     // Check against static values
-//     if (this.loginData.email === this.validEmail && this.loginData.password === this.validPassword) {
-//       this.successMessage = 'Login Success. Redirecting...';
-
-//       // Redirect after short delay
-//       setTimeout(() => {
-//         this.router.navigate(['/']); // navigate to dashboard or home
-//       }, 500);
-//     } else {
-//       this.errorMessage = 'Invalid login credentials.';
-//     }
-//   }
-// }
-
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthenticationService } from '../../services/authentication.service.service';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginData = { email: '', password: '' };
+
+  loginData = {
+    loginType: '',
+    email: '',
+    password: ''
+  };
+
   errorMessage: string = '';
   successMessage: string = '';
 
-  private readonly validEmail = 'test@example.com';
-  private readonly validPassword = 'password123';
+  private adminCredentials = [
+    { email: 'admin1@gmail.com', password: 'admin123' },
+    { email: 'admin2@gmail.com', password: 'admin456' }
+  ];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService
+  ) { }
 
   onSubmit() {
     this.errorMessage = '';
     this.successMessage = '';
 
-    if (this.loginData.email === this.validEmail && this.loginData.password === this.validPassword) {
-      this.successMessage = 'Login Success. Redirecting...';
-      localStorage.setItem('user', JSON.stringify({ email: this.loginData.email }));
-      setTimeout(() => {
-        this.router.navigate(['/dashboard']);
-      }, 500);
+    const { loginType, email, password } = this.loginData;
+
+    if (!loginType || !email || !password) {
+      this.errorMessage = 'Please fill all required fields.';
+      return;
+    }
+
+    if (loginType === 'admin') {
+      const isAdminValid = this.adminCredentials.some(
+        admin => admin.email === email && admin.password === password
+      );
+
+      if (isAdminValid) {
+        this.successMessage = 'Admin login successful!';
+        setTimeout(() => this.router.navigate(['/admin-dashboard']), 1000);
+      } else {
+        this.errorMessage = 'Invalid Admin credentials.';
+      }
+    } else if (loginType === 'customer') {
+      this.authService.login(this.loginData.email, this.loginData.password)
+  .subscribe({
+    next: (res) => {
+      // 🟢 Save session
+      // if backend gives you a token, replace 'dummyToken' with res.token
+      this.authService.setSession('dummyToken', res.email);
+
+      this.successMessage = 'Login successful!';
+      this.router.navigate(['/home']);
+    },
+    error: (err) => {
+      this.errorMessage = 'Invalid credentials.';
+    }
+  });
+
     }
   }
 
@@ -80,4 +82,3 @@ export class LoginComponent {
     this.router.navigate(['/forgotpassword']);
   }
 }
-

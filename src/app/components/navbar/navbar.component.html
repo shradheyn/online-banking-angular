@@ -1,19 +1,50 @@
 <nav class="navbar">
   <ul class="nav-list">
-    <ng-container>
+    <!-- ✅ When user is NOT logged in -->
+    <ng-container *ngIf="!isUserLoggedIn">
       <li class="nav-item">
         <a routerLink="/home">Home</a>
       </li>
       <li class="nav-item">
-        <a  routerLink="/register">Register</a>
+        <a routerLink="/register">Register</a>
       </li>
       <li class="nav-item">
-        <a  routerLink="/login">login</a>
+        <a routerLink="/login">Login</a>
       </li>
       <li class="nav-item">
-        <a  routerLink="/newaccount">Open new saving account</a>
+        <a routerLink="/newaccount">Open new saving account</a>
       </li>
-      
+    </ng-container>
+
+    <!-- ✅ When user IS logged in -->
+    <ng-container *ngIf="isUserLoggedIn">
+      <li class="nav-item">
+        <a routerLink="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/account-details">Account Details</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/account-summary">Account Summary</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/funds-transfer">Funds Transfer</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/account-statement">Account Statement</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/profile">User Profile</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/change-password">Change UserID/Password</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()" style="cursor: pointer;">Logout</a>
+      </li>
+      <li class="nav-item username">
+        Welcome, {{ username }}
+      </li>
     </ng-container>
   </ul>
 </nav>
