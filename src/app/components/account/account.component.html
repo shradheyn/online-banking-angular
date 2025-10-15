@@ -1,71 +1,124 @@
-<div class="container mt-4">
-  <h2 class="mb-4 text-center">Account Management</h2>
+<div class="container mt-5 account-management-container">
+  <!-- Title -->
+  <h2 class="mb-4 text-center fw-bold page-title">🏦 Account Management</h2>
 
-  <!-- Open Account Card -->
-  <div class="card mb-4">
-    <div class="card-header bg-primary text-white">
-      Open New Account
+  <div class="row g-4">
+    <!-- Open Account Card -->
+    <div class="col-lg-6">
+      <div class="card shadow border-0 h-100 open-account-card">
+        <div class="card-header text-white fw-semibold">
+          <i class="bi bi-plus-circle me-2"></i> Open New Account
+        </div>
+        <div class="card-body p-4">
+          <form [formGroup]="openAccountForm" (ngSubmit)="openAccount()">
+            <!-- Account Type -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="accountTypeSelect">Account Type</label>
+              <select
+                id="accountTypeSelect"
+                formControlName="accountType"
+                class="form-select"
+                title="Select account type"
+              >
+                <option value="" disabled>Select Type</option>
+                <option value="PERSONAL">PERSONAL</option>
+                <option value="SAVINGS">SAVINGS</option>
+                <option value="CURRENT">CURRENT</option>
+              </select>
+            </div>
+
+            <!-- Initial Balance -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Initial Balance</label>
+              <input
+                type="number"
+                formControlName="initialBalance"
+                class="form-control"
+                placeholder="Enter initial balance"
+              />
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="btn btn-success w-100 open-btn"
+              [disabled]="isLoading"
+            >
+              {{ isLoading ? 'Processing...' : 'Open Account' }}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-      <form [formGroup]="openAccountForm" (ngSubmit)="openAccount()">
-        <div class="mb-3">
-          <label class="form-label" for="accountTypeSelect">Account Type</label>
-          <select id="accountTypeSelect" formControlName="accountType" class="form-select" title="Select account type">
-            <option value="" disabled>Select Type</option>
-            <option value="PERSONAL">PERSONAL</option>
-            <option value="SAVINGS">SAVINGS</option>
-            <option value="CURRENT">CURRENT</option>
-          </select>
+
+    <!-- Deposit Money Card -->
+    <div class="col-lg-6">
+      <div class="card shadow border-0 h-100 deposit-card">
+        <div class="card-header text-white fw-semibold">
+          <i class="bi bi-wallet2 me-2"></i> Deposit Money
         </div>
+        <div class="card-body p-4">
+          <form [formGroup]="depositForm" (ngSubmit)="depositMoney()">
+            <!-- Select Account -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold" for="depositAccountSelect">Select Account</label>
+              <select
+                id="depositAccountSelect"
+                formControlName="accountId"
+                class="form-select"
+                title="Select account for deposit"
+              >
+                <option value="" disabled>Select Account</option>
+                <option *ngFor="let acc of userAccounts" [value]="acc.accountId">
+                  {{ acc.accountNumber }} ({{ acc.accountType }})
+                </option>
+              </select>
+            </div>
 
-        <div class="mb-3">
-          <label class="form-label">Initial Balance</label>
-          <input type="number" formControlName="initialBalance" class="form-control" placeholder="Enter initial balance" />
+            <!-- Amount -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Amount</label>
+              <input
+                type="number"
+                formControlName="amount"
+                class="form-control"
+                placeholder="Enter amount"
+              />
+            </div>
+
+            <!-- Transaction Password -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Transaction Password</label>
+              <input
+                type="password"
+                formControlName="transactionPassword"
+                class="form-control"
+                placeholder="Enter transaction password"
+              />
+            </div>
+
+            <!-- Remarks -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Remarks</label>
+              <input
+                type="text"
+                formControlName="remarks"
+                class="form-control"
+                placeholder="Optional remarks"
+              />
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="btn btn-primary w-100 deposit-btn"
+              [disabled]="isLoading"
+            >
+              {{ isLoading ? 'Processing...' : 'Deposit Money' }}
+            </button>
+          </form>
         </div>
-
-        <button type="submit" class="btn btn-success w-100" [disabled]="isLoading">
-          {{ isLoading ? 'Processing...' : 'Open Account' }}
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Deposit Money Card -->
-  <div class="card">
-    <div class="card-header bg-success text-white">
-      Deposit Money
-    </div>
-    <div class="card-body">
-      <form [formGroup]="depositForm" (ngSubmit)="depositMoney()">
-        <div class="mb-3">
-          <label class="form-label" for="depositAccountSelect">Select Account</label>
-          <select id="depositAccountSelect" formControlName="accountId" class="form-select" title="Select account for deposit">
-            <option value="" disabled>Select Account</option>
-            <option *ngFor="let acc of userAccounts" [value]="acc.accountId">
-              {{ acc.accountNumber }} ({{ acc.accountType }})
-            </option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Amount</label>
-          <input type="number" formControlName="amount" class="form-control" placeholder="Enter amount" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Transaction Password</label>
-          <input type="password" formControlName="transactionPassword" class="form-control" placeholder="Enter transaction password" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Remarks</label>
-          <input type="text" formControlName="remarks" class="form-control" placeholder="Optional remarks" />
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading">
-          {{ isLoading ? 'Processing...' : 'Deposit Money' }}
-        </button>
-      </form>
+      </div>
     </div>
   </div>
 </div>

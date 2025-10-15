@@ -1,34 +1,40 @@
-<div class="container mt-5">
-  <h2 class="text-center mb-4">Fund Transfer</h2>
+<div class="container mt-5 fund-transfer-container">
+  <!-- Page Title -->
+  <h2 class="text-center mb-4 fw-bold page-title">💸 Fund Transfer</h2>
 
-  <!-- Buttons -->
-  <div class="text-center mb-4">
-    <button class="btn btn-primary me-3" (click)="toggleTransferForm()">Make a Transfer</button>
-    <button class="btn btn-secondary" (click)="toggleHistoryTable()">View History</button>
+  <!-- Action Buttons -->
+  <div class="d-flex justify-content-center gap-3 mb-4">
+    <button class="btn btn-primary action-btn" (click)="toggleTransferForm()">Make a Transfer</button>
+    <button class="btn btn-outline-primary action-btn" (click)="toggleHistoryTable()">View History</button>
   </div>
 
-  <!-- Success & Error messages -->
-  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
-  <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+  <!-- Alerts -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center rounded-3 shadow-sm">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="alert alert-success text-center rounded-3 shadow-sm">
+    {{ successMessage }}
+  </div>
 
-  <!-- Transfer Form -->
-  <div *ngIf="showTransferForm" class="card p-4 shadow-sm">
+  <!-- Transfer Form Card -->
+  <div *ngIf="showTransferForm" class="card p-4 shadow transfer-card">
+    <h4 class="mb-3 fw-semibold text-primary">Transfer Details</h4>
+
     <!-- From Account ID -->
     <div class="mb-3">
-      <label for="fromAccountId" class="form-label">From Account ID</label>
+      <label for="fromAccountId" class="form-label fw-semibold">From Account ID</label>
       <input
         id="fromAccountId"
         type="text"
         class="form-control"
         [value]="transferData.fromAccountId"
         readonly
-        title="From Account ID"
       />
     </div>
 
     <!-- To Account ID -->
     <div class="mb-3">
-      <label for="toAccountId" class="form-label">To Account ID</label>
+      <label for="toAccountId" class="form-label fw-semibold">To Account ID</label>
       <input
         id="toAccountId"
         type="number"
@@ -36,14 +42,13 @@
         [(ngModel)]="transferData.toAccountId"
         name="toAccountId"
         placeholder="Enter recipient account ID"
-        title="To Account ID"
         required
       />
     </div>
 
     <!-- Amount -->
     <div class="mb-3">
-      <label for="amount" class="form-label">Amount</label>
+      <label for="amount" class="form-label fw-semibold">Amount</label>
       <input
         id="amount"
         type="number"
@@ -51,31 +56,29 @@
         [(ngModel)]="transferData.amount"
         name="amount"
         placeholder="Enter amount to transfer"
-        title="Amount"
         required
       />
     </div>
 
     <!-- Transfer Mode -->
     <div class="mb-3">
-      <label for="transferMode" class="form-label">Transfer Mode</label>
+      <label for="transferMode" class="form-label fw-semibold">Transfer Mode</label>
       <select
         id="transferMode"
         class="form-select"
         [(ngModel)]="transferData.transferMode"
         name="transferMode"
-        title="Transfer Mode"
         required
       >
         <option value="">Select Mode</option>
         <option value="NEFT">NEFT</option>
-        <option value="IMPS">UPI</option>
+        <option value="UPI">UPI</option>
       </select>
     </div>
 
     <!-- Transaction Password -->
     <div class="mb-3">
-      <label for="transactionPassword" class="form-label">Transaction Password</label>
+      <label for="transactionPassword" class="form-label fw-semibold">Transaction Password</label>
       <input
         id="transactionPassword"
         type="password"
@@ -83,34 +86,33 @@
         [(ngModel)]="transferData.transactionPassword"
         name="transactionPassword"
         placeholder="Enter transaction password"
-        title="Transaction Password"
         required
       />
     </div>
 
     <!-- Remarks -->
     <div class="mb-3">
-      <label for="remarks" class="form-label">Remarks</label>
+      <label for="remarks" class="form-label fw-semibold">Remarks</label>
       <input
         id="remarks"
         type="text"
         class="form-control"
         [(ngModel)]="transferData.remarks"
         name="remarks"
-        placeholder="Enter remarks"
-        title="Remarks"
+        placeholder="Enter remarks (optional)"
       />
     </div>
 
-    <button class="btn btn-success w-100" (click)="makeTransfer()">Transfer</button>
+    <!-- Submit Button -->
+    <button class="btn btn-success w-100 fw-semibold transfer-btn" (click)="makeTransfer()">💰 Transfer</button>
   </div>
 
   <!-- Transaction History Table -->
-  <div *ngIf="showHistoryTable" class="card p-4 shadow-sm mt-4">
-    <h4 class="mb-3">Transaction History</h4>
+  <div *ngIf="showHistoryTable" class="card shadow-sm mt-5 p-4 history-card">
+    <h4 class="fw-semibold mb-3 text-primary">📜 Transaction History</h4>
 
-    <table class="table table-bordered table-hover" *ngIf="historyData.length > 0">
-      <thead class="table-dark">
+    <table class="table table-hover table-borderless" *ngIf="historyData.length > 0">
+      <thead>
         <tr>
           <th>Transfer ID</th>
           <th>From Account</th>
@@ -129,7 +131,15 @@
           <td>{{ tx.toAccountId }}</td>
           <td>{{ tx.amount | currency:'INR' }}</td>
           <td>{{ tx.transferMode }}</td>
-          <td>{{ tx.status }}</td>
+          <td>
+            <span [ngClass]="{
+              'badge bg-success': tx.status === 'SUCCESS',
+              'badge bg-danger': tx.status === 'FAILED',
+              'badge bg-warning text-dark': tx.status === 'PENDING'
+            }">
+              {{ tx.status }}
+            </span>
+          </td>
           <td>{{ tx.remarks }}</td>
           <td>{{ tx.transferDate | date:'short' }}</td>
         </tr>

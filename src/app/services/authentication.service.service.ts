@@ -127,6 +127,15 @@ getUserAccounts(userId: number): Observable<any[]> {
     catchError(this.handleError)
   );
 }
+
+forgotPassword(email: string) {
+  return this.http.post(`http://localhost:8088/banking/api/users/forgot-password?email=${email}`, null, { responseType: 'text' });
+}
+
+setNewPassword(email: string, newPassword: string) {
+  return this.http.post(`http://localhost:8088/banking/api/users/set-new-password?email=${email}&newPassword=${newPassword}`, null, { responseType: 'text' });
+}
+
   // ---------------- ERROR HANDLER ----------------
   private handleError(error: any) {
     let errorMessage = 'An unknown error occurred';

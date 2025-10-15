@@ -1,0 +1,140 @@
+.container {
+  max-width: 700px;
+  background: linear-gradient(to bottom right, #f8f9fa, #eef2f7);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease;
+}
+
+h2 {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.btn {
+  font-weight: 500;
+  border-radius: 30px;
+  padding: 0.6rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background-color: #4e73df;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3b5fc2;
+}
+
+.btn-secondary {
+  background-color: #858796;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #6c757d;
+}
+
+.btn-danger {
+  background-color: #e74a3b;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-success {
+  background-color: #1cc88a;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #17a673;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #34495e;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 0.6rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+}
+
+.table {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #4e73df !important;
+  color: white;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5fd;
+}
+
+.alert {
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.text-muted {
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
